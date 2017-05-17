@@ -6,10 +6,10 @@ RUN apk add --no-cache python3 && \
     pip3 install --upgrade pip setuptools && \
     rm -r /root/.cache
 
-RUN pip3 install -r requirements.txt
+ADD . /var/app
 
-ENV TOKEN
+RUN pip3 install -r /var/app/requirements.txt
 
 EXPOSE 80
 
-ENTRYPOINT ["python3", "bot.py", $TOKEN]
+ENTRYPOINT python3 /var/app/bot.py "$TOKEN"
